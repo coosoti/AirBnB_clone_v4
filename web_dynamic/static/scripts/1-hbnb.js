@@ -1,24 +1,11 @@
-// Listen for changes on each input checkbox tag
-// if the checkbox is checked, you must store the Amenity ID in a variable (dictionary or list)
-// if the checkbox is unchecked, you must remove the Amenity ID from the variable
-// update the h4 tag inside the div Amenities with the list of Amenities checked
-const checked = {};
-$(document).ready(function () {
-  $('input:checkbox').change(function () {
+$('document').ready(function () {
+  let amenities = {};
+  $('INPUT[type="checkbox"]').change(function () {
     if ($(this).is(':checked')) {
-      checked[$(this).data('id')] = $(this).data('name');
+      amenities[$(this).attr('data-id')] = $(this).attr('data-name');
     } else {
-      delete checked[$(this).data('id')];
+      delete amenities[$(this).attr('data-id')];
     }
-    $('div.amenities h4').html(function () {
-      const amenities = [];
-      Object.keys(checked).forEach(function (key) {
-        amenities.push(checked[key]);
-      });
-      if (amenities.length === 0) {
-        return ('&nbsp');
-      }
-      return (amenities.join(', '));
-    });
+    $('.amenities H4').text(Object.values(amenities).join(', '));
   });
 });
